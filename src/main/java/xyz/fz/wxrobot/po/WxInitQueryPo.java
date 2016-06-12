@@ -22,7 +22,7 @@ public class WxInitQueryPo extends WxQueryPo {
     private Logger logger = LoggerFactory.getLogger(WxInitQueryPo.class);
 
     private String url = "https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxinit";
-    private String urlParams = "?r" + System.currentTimeMillis();
+    private String urlParams = "?r=" + System.currentTimeMillis();
 
     public WxInitQueryPo(Map<String, Object> bodyParams) {
         this.bodyParams = bodyParams;

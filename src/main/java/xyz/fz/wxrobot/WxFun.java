@@ -1,6 +1,7 @@
 package xyz.fz.wxrobot;
 
 import okhttp3.OkHttpClient;
+import org.apache.commons.lang.StringUtils;
 import xyz.fz.wxrobot.cookiejar.WxLoginCookieJar;
 import xyz.fz.wxrobot.po.*;
 import xyz.fz.wxrobot.util.BaseUtil;
@@ -92,14 +93,16 @@ public class WxFun {
 
     public static String checkNewMsg(Map<String, Object> baseRequest, Map syncKey) {
 
-        String strSyncKey;
+        String strSyncKey = "";
         StringBuilder sb = new StringBuilder();
         List list = (List) syncKey.get("List");
         for(int i=0; i<list.size(); i++){
             Map data = (Map) list.get(i);
             sb.append("|" + data.get("Key") + "_" + data.get("Val"));
         }
-        strSyncKey = sb.toString().substring(1);
+        if (StringUtils.isNotBlank(sb.toString())) {
+            strSyncKey = sb.toString().substring(1);
+        }
         Map BaseRequest = (Map) baseRequest.get("BaseRequest");
         String urlParams = "?r=" + System.currentTimeMillis() + BaseUtil.getRandomNumber(5);
         try {
