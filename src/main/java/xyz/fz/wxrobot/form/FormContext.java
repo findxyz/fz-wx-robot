@@ -2,6 +2,8 @@ package xyz.fz.wxrobot.form;
 
 import java.awt.*;
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Created by fz on 2016/5/31.
@@ -9,6 +11,8 @@ import java.util.*;
 public class FormContext {
 
     public static int messageSize = 1000;
+
+    private ExecutorService threadPool = Executors.newFixedThreadPool(3);
 
     private FormContext() {}
 
@@ -48,5 +52,9 @@ public class FormContext {
 
     public Set getConfirmSet() {
         return confirmSet;
+    }
+
+    public ExecutorService getThreadPool() {
+        return threadPool;
     }
 }

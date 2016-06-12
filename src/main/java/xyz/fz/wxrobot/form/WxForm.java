@@ -165,27 +165,28 @@ public class WxForm {
     }
 
     private void sendMsg() {
-        msgContent.setEnabled(false);
         Object curCustomerId = wxRobotApp.getThing("curCustomerId");
         if (curCustomerId != null) {
             String userId = wxRobotApp.getThing("userId").toString();
             String curUserName = wxRobotApp.getThing("curUserName").toString();
             String curCustomerName = wxRobotApp.getThing("curCustomerName").toString();
-            boolean sendFlag = WxFun.sendMsg(userId, curCustomerId.toString(), msgContent.getText(), (Map<String, Object>) wxRobotApp.getThing("baseRequest"), wxRobotApp.getThing("pass_ticket").toString());
-            if (sendFlag) {
-                SwingUtilities.invokeLater(() -> {
-                    Vector messageVector = formContext.getMessageVector();
-                    String content = curUserName + " 在 " + BaseUtil.ymdHmsDateFormat(new Date()) + " 对 " + curCustomerName + " 说：" + msgContent.getText();
-                    messageVector.add(0, content);
-                    messageList.setListData(messageVector);
-                    messageList.updateUI();
-                    msgContent.setText("");
-                    msgContent.updateUI();
-                });
-            }
+            String msgText = msgContent.getText();
+            SwingUtilities.invokeLater(() -> {
+                msgContent.setEnabled(false);
+                Vector messageVector = formContext.getMessageVector();
+                String content = curUserName + " 在 " + BaseUtil.ymdHmsDateFormat(new Date()) + " 对 " + curCustomerName + " 说：" + msgContent.getText();
+                messageVector.add(0, content);
+                messageList.setListData(messageVector);
+                messageList.updateUI();
+                msgContent.setText("");
+                msgContent.updateUI();
+                msgContent.setEnabled(true);
+                msgContent.requestFocus();
+            });
+            formContext.getThreadPool().execute(() -> {
+                WxFun.sendMsg(userId, curCustomerId.toString(), msgText, (Map<String, Object>) wxRobotApp.getThing("baseRequest"), wxRobotApp.getThing("pass_ticket").toString());
+            });
         }
-        msgContent.setEnabled(true);
-        msgContent.requestFocus();
     }
 
     public FormContext getFormContext() {
