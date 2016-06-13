@@ -56,7 +56,7 @@ public class WxFun {
 
     public static Map<String, Object> checkConfirm(String uuid) {
 
-        String urlParams = "?tip=1&uuid=" + uuid + "&_" + System.currentTimeMillis();
+        String urlParams = "?tip=1&uuid=" + uuid + "&_=" + System.currentTimeMillis();
         WxCheckConfirmQueryPo checkConfirmQueryPo = new WxCheckConfirmQueryPo(urlParams);
         return checkConfirmQueryPo.result();
     }
