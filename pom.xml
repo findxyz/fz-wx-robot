@@ -11,7 +11,7 @@
     <properties>
         <jackson.version>2.10.0.pr1</jackson.version>
         <commons-lang.version>2.6</commons-lang.version>
-        <commons-io.version>2.4</commons-io.version>
+        <commons-io.version>2.7</commons-io.version>
         <slf4j.version>1.7.12</slf4j.version>
         <logback-classic.version>1.1.3</logback-classic.version>
         <okhttp.version>3.2.0</okhttp.version>
